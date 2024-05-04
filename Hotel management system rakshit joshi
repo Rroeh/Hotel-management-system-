@@ -1,0 +1,141 @@
+class Hotel:
+    def __init__(self):
+        self.rooms = {}
+        self.parking_capacity = 200
+        self.parking_available = 100
+        self.meals_menu = {
+            "breakfast": {
+                "id": 1,
+                "name": "Breakfast Combo",
+                "price": 1500.0
+            },
+            "lunch": {
+                "id": 2,
+                "name": "Lunch Combo",
+                "price": 2000.0
+            },
+            "dinner": {
+                "id": 3,
+                "name": "Dinner Combo",
+                "price": 2500.0
+            }
+        }
+        self.telephone_services = {
+            "Room Service": "123-456-7890",
+            "Wake-up Calls": "987-654-3210",
+            "Concierge": "111-222-3333",
+            "Housekeeping": "444-555-6666"
+        }
+
+    def add_room(self, room_number, capacity, price_per_night):
+        if room_number in self.rooms:
+            print("Room already exists.")
+        else:
+            self.rooms[room_number] = {"capacity": capacity, "price_per_night": price_per_night}
+            print(f"Room {room_number} added successfully.")
+
+    def display_rooms(self):
+        if self.rooms:
+            print("Room Number | Capacity | Price Per Night")
+            for room_number, details in self.rooms.items():
+                print(f"{room_number}          | {details['capacity']}        | {details['price_per_night']}")
+        else:
+            print("No rooms available.")
+
+    def check_availability(self, room_number, checkin_date, checkout_date):
+        if room_number not in self.rooms:
+            print("Room does not exist.")
+            return
+        
+        print(f"Room {room_number} is available.")
+
+    def book_room(self, room_number, checkin_date, checkout_date):
+        if room_number not in self.rooms:
+            print("Room does not exist.")
+            return
+        print(f"Room {room_number} booked successfully.")
+
+    def check_parking_availability(self):
+        print(f"Parking spaces available: {self.parking_available}/{self.parking_capacity}")
+
+    def reserve_parking(self, num_spaces):
+        if num_spaces > self.parking_available:
+            print("Not enough parking spaces available.")
+            return
+        self.parking_available -= num_spaces
+        print(f"{num_spaces} parking spaces reserved successfully.")
+
+    def display_meals_menu(self):
+        print("Meals Menu")
+        for meal, details in self.meals_menu.items():
+            print(f"{details['id']}. {details['name']}: ${details['price']}")
+
+    def display_telephone_services(self):
+        print("Telephone Services")
+        for service, number in self.telephone_services.items():
+            print(f"{service}: {number}")
+
+def main():
+    hotel = Hotel()
+
+    while True:
+        print("\nHotel Management System")
+        print("1. Add Room")
+        print("2. Display Rooms")
+        print("3. Check Room Availability")
+        print("4. Book Room")
+        print("5. Check Parking Availability")
+        print("6. Reserve Parking")
+        print("7. Display Meals Menu")
+        print("8. Display Telephone Services")
+        print("9. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            room_number = input("Enter room number: ")
+            capacity = int(input("Enter room capacity: "))
+            price_per_night = float(input("Enter price per night: "))
+            hotel.add_room(room_number, capacity, price_per_night)
+
+        elif choice == '2':
+            hotel.display_rooms()
+
+        elif choice == '3':
+            room_number = input("Enter room number to check availability: ")
+            checkin_date = input("Enter check-in date (YYYY-MM-DD): ")
+            checkout_date = input("Enter check-out date (YYYY-MM-DD): ")
+            hotel.check_availability(room_number, checkin_date, checkout_date)
+
+        elif choice == '4':
+            room_number = input("Enter room number to book: ")
+            checkin_date = input("Enter check-in date (YYYY-MM-DD): ")
+            checkout_date = input("Enter check-out date (YYYY-MM-DD): ")
+            hotel.book_room(room_number, checkin_date, checkout_date)
+
+        elif choice == '5':
+            hotel.check_parking_availability()
+
+        elif choice == '6':
+            num_spaces = int(input("Enter the number of parking spaces to reserve: "))
+            hotel.reserve_parking(num_spaces)
+
+        elif choice == '7':
+            hotel.display_meals_menu()
+            display_meal_menu = input("Enter food items")
+            food_items = input("Pizza, butter chicken, naan")
+            
+        elif choice == '8':
+            hotel.display_telephone_services()
+        
+
+        elif choice == '9':
+            print("Exiting program...")
+            break
+
+        else:
+            print("Invalid choice. Please enter a valid option.")
+
+
+if __name__ == "__main__":
+    main()
